@@ -1,0 +1,41 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task-create {
+    width: 450px;
+}
+
+.task-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.p-float-label {
+    margin: 15px 0px;
+}
+
+.p-card {
+    text-align: center;
+}
+
+.task-show {
+    width: 350px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.task-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.task-title {
+    margin-bottom: 5px;
+}

@@ -2,41 +2,40 @@ import { InputText } from "primereact/inputtext";
 import React, { useState } from "react";
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
+import { Card } from 'primereact/card';
 
-function TaskCreate() {
+function TaskCreate({ onCreate }) {
     const [baslik, setBaslik] = useState('');
-    const [task, setTask] = useState('');
-    const [value, setValue] = useState('');
+    const [taskDec, setTaskDec] = useState('');
     const [loading, setLoading] = useState(false);
-    const load = () => {
+    const load = (event) => {
+        event.preventDefault();
+        onCreate(baslik, taskDec);
         setLoading(true);
 
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+            setBaslik('');
+            setTaskDec('');
+        }, 500);
     };
-    return <div>
-        <h3>Lütfen Task Ekleyiniz!</h3>
-        <form>
-            <div className="card flex justify-content-center">
-                <span className="p-float-label">
-                    <InputText id="baslik" baslik={baslik} onChange={(e) => setBaslik(e.target.baslik)} />
-                    <label htmlFor="baslik">Başlık</label>
-                </span>
-            </div>
-            <div className="card flex justify-content-center">
-                <span className="p-float-label">
-                    <InputText id="task" task={task} onChange={(e) => setTask(e.target.task)} />
-                    <label htmlFor="task">Task Giriniz</label>
-                </span>
-            </div>
-            <div className="card flex justify-content-center">
-                <InputTextarea autoResize placeholder="Lütfen Açıklayınız." value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
-            </div>
-            <div className="card flex flex-wrap justify-content-center gap-3">
-                <Button label="Submit" icon="pi pi-check" loading={loading} onClick={load} />
-            </div>
-        </form>
+    return <div className="task-create">
+        <Card title="Lütfen Task Ekleyiniz!">
+            <form className="task-form">
+                <div className="card flex justify-content-center">
+                    <span className="p-float-label">
+                        <InputText id="baslik" value={baslik} onChange={(e) => setBaslik(e.target.value)} />
+                        <label htmlFor="baslik">Başlık:</label>
+                    </span>
+                </div>
+                <div className="card flex justify-content-center">
+                    <InputTextarea autoResize placeholder="Lütfen Açıklayınız." value={taskDec} onChange={(e) => setTaskDec(e.target.value)} rows={5} cols={30} />
+                </div>
+                <div className="card flex flex-wrap justify-content-center gap-3">
+                    <Button label="Oluştur" icon="pi pi-check" loading={loading} onClick={load} />
+                </div>
+            </form>
+        </Card>
     </div>
 }
 export default TaskCreate;
