@@ -2,19 +2,23 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { useState } from 'react';
 import TaskCreate from './TaskCreate';
+import { useContext } from 'react';
+import TasksContext from '../Context/task';
 
-
-function TaskShow({ task, onDelete, onUpdate }) {
+function TaskShow({ task }) {
+    const { editTaskById, deleteTaskById } = useContext(TasksContext)
     const [showEdit, setShowEdit] = useState(false);
     const handleDeleteClick = () => {
-        onDelete(task.id);
+        // onDelete(task.id);
+        deleteTaskById(task.id);
     }
     const handleEditClick = () => {
         setShowEdit(!showEdit)
     }
     const handleSubmit = (id, updatedTitle, updatedTaskDec) => {
         setShowEdit(false)
-        onUpdate(id, updatedTitle, updatedTaskDec)
+        //onUpdate(id, updatedTitle, updatedTaskDec)
+        editTaskById(id, updatedTitle, updatedTaskDec)
     }
     return <div className='task-show'>
         <Card>

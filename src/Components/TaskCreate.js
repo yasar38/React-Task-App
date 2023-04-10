@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
+import { useContext } from 'react';
+import TasksContext from '../Context/task';
 
-function TaskCreate({ onCreate, task, taskFormUpdate, onUpdate }) {
+function TaskCreate({ task, taskFormUpdate, onUpdate }) {
+    const { createTask } = useContext(TasksContext)
     const [baslik, setBaslik] = useState(task ? task.title : '');
     const [taskDec, setTaskDec] = useState(task ? task.taskDec : '')
     const [loading, setLoading] = useState(false);
@@ -13,8 +16,10 @@ function TaskCreate({ onCreate, task, taskFormUpdate, onUpdate }) {
         setLoading(true);
         if (taskFormUpdate) {
             onUpdate(task.id, baslik, taskDec)
+            //editTaskById(task.id, baslik, taskDec)
         } else {
-            onCreate(baslik, taskDec);
+            // onCreate(baslik, taskDec);
+            createTask(baslik, taskDec);
         }
         setTimeout(() => {
             setLoading(false);
